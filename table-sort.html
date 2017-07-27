@@ -65,13 +65,15 @@
     let data = null;
     let xhr = new XMLHttpRequest();
     xhr.open("get", 'data.txt', false); // sync
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            let val = xhr.responseText;
-            data = JSON.parse(val);
-        }
-    }
-    xhr.send(null);
+    // xhr.onreadystatechange = function() {
+    //     if (xhr.readyState === 4 && xhr.status === 200) {
+    //         let val = xhr.responseText;
+    //         data = JSON.parse(val);
+    //     }
+    // }
+    // xhr.send(null);
+    xhr.send();
+    data = JSON.parse(xhr.responseText);
 
     function bind() {
         let frg = document.createDocumentFragment();
@@ -124,11 +126,6 @@
         }
         tBody.appendChild(frg);
         frg = null;
-    }
-
-    function htmlEncode(input) {
-        let code = input.charCodeAt();
-
     }
 
     for (let i = 0; i < oThs.length; i++) {
