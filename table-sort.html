@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>table sort</title>
+    <style type="text/css">
+    .box {
+        width: 400px;
+        border: 1px solid black;
+        margin: 10px auto;
+        text-align: center;
+    }
+
+    #table {
+        width：400px;
+        border-collapse: collapse;
+    }
+
+    th,
+    td {
+        width: 100px;
+        text-align: center;
+        line-height: 30px;
+    }
+
+    tbody>tr:nth-child(odd) {
+        background-color: lightgrey;
+    }
+
+    .th:hover {
+        cursor: pointer;
+    }
+
+    .th:after {
+        content: attr(data-text);
+        font-size: small;
+        margin-left: 5px;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <table id="table">
+            <thead>
+                <tr>
+                    <th class="th">name</th>
+                    <th class="th">age</th>
+                    <th class="th">language</th>
+                    <th class="th">gender</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    <script type="text/javascript">
+    let oTable = document.getElementById('table');
+    let tHead = oTable.tHead;
+    let oThs = tHead.rows[0].cells;
+    let tBody = oTable.tBodies[0];
+    let oRows = tBody.rows;
+
+    let data = null;
+    let xhr = new XMLHttpRequest();
+    xhr.open("get", 'data.txt', false); // sync
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            let val = xhr.responseText;
+            data = JSON.parse(val);
+        }
+    }
+    xhr.send(null);
+
+    function bind() {
+        let frg = document.createDocumentFragment();
+        for (let i = 0; i < data.length; i++) {
+            let cur = data[i];
+
+            let oTr = document.createElement("tr");
+            for (let key in cur) {
+                let oTd = document.createElement("td");
+                oTd.innerHTML = cur[key];
+                oTr.appendChild(oTd);
+            }
+            frg.appendChild(oTr);
+        }
+        tBody.appendChild(frg);
+        frg = null;
+    }
+    bind();
+
+
+
+    function sort(index) {
+        this.flag *= -1;
+        let that = this;
+        let arr = Array.prototype.slice.call(oRows);
+
+        for (let i = 0; i < oThs.length; i++) {
+            if (oThs[i] !== this) {
+                oThs[i].setAttribute('data-text', '');
+                oThs[i].flag = -1;
+            }
+        }
+
+        let arrow = this.flag === 1 ? '\u2193' : '\u2191';
+        this.setAttribute('data-text', arrow);
+
+        arr.sort(function(a, b) {
+            let curCol = a.cells[index].innerHTML;
+            let nexCol = b.cells[index].innerHTML;
+            let curColNum = parseFloat(curCol);
+            let nexColNum = parseFloat(nexCol);
+            if (isNaN(curColNum) || isNaN(nexColNum)) {
+                return (curCol.localeCompare(nexCol)) * that.flag;
+            }
+            return (curColNum - nexColNum) * that.flag;
+        })
+        let frg = document.createDocumentFragment();
+        for (let i = 0; i < arr.length; i++) {
+            frg.appendChild(arr[i]);
+        }
+        tBody.appendChild(frg);
+        frg = null;
+    }
+
+    function htmlEncode(input) {
+        let code = input.charCodeAt();
+
+    }
+
+    for (let i = 0; i < oThs.length; i++) {
+        let curTh = oThs[i];
+        curTh.index = i;
+        curTh.flag = -1;
+        if (curTh.className === "th") {
+            curTh.onclick = function() {
+                sort.call(this, curTh.index);
+            }
+        }
+    }
+    </script>
+</body>
+
+</html>
