@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>mouse fellow</title>
+    <style type="text/css">
+    .box {
+        display: flex;
+        justify-content: space-around;
+        position: relative;
+    }
+
+    img {
+        margin: 10px;
+    }
+
+    #mark {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    /*  .bigImg {
+       width: 100%;
+       height: 100%;
+   } */
+    </style>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="box">
+        <img src="http://www.550990.com/upload/photo/00/02/33/51/thumb/23351.jpg" bigImg="http://cfile218.uf.daum.net/R400x0/02276F505199B552168CCD" alt="">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRgsdEJnl_TGCDPxLHRLBg5ZgIVU4LclnHNVPX-B7F_Ml3S_sC_Q" bigImg="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDZ9EnWPCcwGyI5DKMfEh-0TXR84GAdHNw0rXFWXqZgXd1UcTcXw" alt="">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTj5E8RuJL0PW1I7ItOY-567__X28Mh2E2zTogtGqx2WRCH2kLDxQ" bigImg="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSh0FZJeR-K2K4DaNGAkPV0Ju2SNSbq29RXpF-NvCbIaXVdqv1l" alt="">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQomJI4laZIsgUyVHIS0zgCHJd8xcA3VaepTx_YpFzdt_iN3A-8" bigImg="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQW7xX4TUxuWT4KlE4o52SSOKhBrFgzAiznwvb7-xAu4XGYvF0q" alt="">
+        <div id="mark">
+            <img src="" alt="" class="bigImg">
+        </div>
+    </div>
+    <script type="text/javascript">
+    $(function() {
+        var $box = $(".box"),
+            $mark = $("#mark");
+        var $boxOffset = $box.offset();
+        console.log($boxOffset)
+
+        $box.children("img").bind("mouseover", function(e) {
+            e = e || window.event;
+            e.target = e.target || e.srcElement;
+            var left = e.clientX - $boxOffset.left + 10;
+            var top = e.clientY - $boxOffset.top + 10;
+
+            $mark.stop().show(500).css({ left: left, top: top }).find("img").attr("src", e.target.getAttribute("bigImg"));
+        }).bind("mousemove", function(e) {
+            e = e || window.event;
+            e.target = e.target || e.srcElement;
+            var left = e.clientX - $boxOffset.left + 10;
+            var top = e.clientY - $boxOffset.top + 10;
+            $mark.css({ left: left, top: top })
+        }).bind("mouseout", function(e) {
+            $mark.stop().hide()
+        })
+    });
+    </script>
+</body>
+
+</html>
