@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>show-detail</title>
+    <style type="text/css">
+    #box {
+        position: relative;
+        width: 200px;
+        height: 150px;
+        margin: 30px auto;
+    }
+
+    #cover {
+        position: absolute;
+        width: 70px;
+        height: 70px;
+        top: 0;
+        left: 0;
+        background: rgba(218, 249, 196, 0.5);
+    }
+
+    #bigImg {
+        display: none;
+        position: absolute;
+        width: 250px;
+        height: 200px;
+        top: 0;
+        left: 230px;
+        overflow: hidden;
+    }
+
+    #bigImg img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 200%;
+        width: 200%;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <img src="http://www.550990.com/upload/photo/00/02/33/51/thumb/23351.jpg" alt="">
+        <div id="cover" style="display:none;"></div>
+        <div id="bigImg">
+            <img src="http://cfile218.uf.daum.net/R400x0/02276F505199B552168CCD">
+        </div>
+    </div>
+    <script type="text/javascript">
+    var box = document.getElementById("box"),
+        cover = document.getElementById("cover");
+    var bigImg = document.getElementById("bigImg");
+    box.onmouseenter = function(e) {
+        e = e || window.event;
+        cover.style.display = "block";
+        setPosition(e);
+        bigImg.style.display = "block";
+    };
+
+    box.onmousemove = function(e) {
+        setPosition(e);
+    };
+
+    box.onmouseleave = function(e) {
+        e = e || window.event;
+        cover.style.display = "none";
+        bigImg.style.display = "none";
+    };
+
+    function setPosition(e) {
+        var left = e.clientX - box.offsetLeft - (cover.offsetWidth) / 2;
+        var top = e.clientY - box.offsetTop - (cover.offsetHeight) / 2;
+
+        var tempLeft = 0,
+            tempTop = 0;
+        var minLeft = 0,
+            minTop = 0,
+            maxLeft = box.offsetWidth - cover.offsetWidth,
+            maxTop = box.offsetHeight - cover.offsetHeight;
+
+        if (left < minLeft) {
+            cover.style.left = minLeft + "px";
+            tempLeft = minLeft;
+        } else if (left > maxLeft) {
+            cover.style.left = maxLeft + "px";
+            tempLeft = maxLeft;
+        } else {
+            cover.style.left = left + "px";
+            tempLeft = left;
+        }
+
+        if (top < minTop) {
+            cover.style.top = minTop + "px";
+            tempTop = minTop;
+        } else if (top > maxTop) {
+            cover.style.top = maxTop + "px";
+            tempTop = maxTop;
+        } else {
+            cover.style.top = top + "px";
+            tempTop = top;
+        }
+
+        var oImg = bigImg.getElementsByTagName("img")[0];
+        oImg.style.left = -tempLeft * 2.5 + "px";
+        oImg.style.top = -tempTop * 2.5 + "px";
+
+    }
+    </script>
+</body>
+
+</html>
