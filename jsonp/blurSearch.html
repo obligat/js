@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>jsonp</title>
+    <style type="text/css">
+    input {
+        outline: none;
+        line-height: 25px;
+        box-sizing: border-box;
+        border: 1px solid transparent;
+    }
+
+    li {
+        list-style: none;
+        line-height: 1.5;
+        padding: 5px;
+    }
+
+    li:hover {
+        background: #CCCCCC;
+        cursor: pointer;
+    }
+
+    .box {
+        width: 300px;
+        display: flex;
+        flex-direction: column;
+        background: #FFCC99;
+        padding-bottom: 0;
+        margin: 30px auto;
+        border: 10px solid #99CCCC;
+        box-shadow: 0px 15px 10px -15px #000;
+        border-radius: 5px;
+    }
+
+    #searchBox {
+        flex: 1;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+
+    h1 {
+        text-align: center;
+    }
+    </style>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <h1>模仿百度搜索框模糊匹配</h1>
+    <div class="box">
+        <input type="text" id="search">
+        <ul id="searchBox">
+        </ul>
+    </div>
+    <script type="text/javascript">
+    var search = (function() {
+        var $searchInput = $("#search"),
+            $searchBox = $("#searchBox");
+
+        function bindData() {
+            var input = $searchInput.val();
+
+            function callback(data) {
+                data = data.s;
+                var str = '';
+                $.each(data, function(index, item) {
+                    if (index <= 5) {
+                        str += "<li>" + item + "</li>";
+                    }
+                });
+
+                if (!str) {
+                    return;
+                }
+
+                $searchBox.html(str).stop().slideDown(100);
+            }
+
+
+            $.ajax({
+                url: "https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=" + input,
+                dataType: "jsonp",
+                jsonp: "cb",
+                success: callback
+            })
+        }
+
+        function init() {
+            $searchInput.on("focus keyup keydown", function() {
+                var val = $(this).val();
+                if (val.length > 0) {
+                    bindData();
+                    return;
+                }
+
+                $searchBox.stop().slideUp(100);
+
+            });
+
+
+            $(document).on("click", function(e) {
+                var target = e.target,
+                    tarTag = target.tagName.toUpperCase(),
+                    $target = $(target);
+
+                if (tarTag === "LI" && target.parentNode.id == "searchBox") {
+                    $searchInput.val($target.html());
+                    $searchBox.stop().slideUp(100);
+                    return;
+                }
+                if (target.id == "search") {
+                    return;
+                }
+
+                $searchBox.stop().slideUp(100);
+
+            })
+
+        }
+
+        return { init: init };
+    })();
+    search.init();
+    </script>
+</body>
+
+</html>
