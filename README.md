@@ -5,4 +5,5 @@
 5. [js 实现鼠标跟随](https://obligat.github.io/js/mouse-fellow-js.html)
 6. [放大镜效果](https://obligat.github.io/js/photo=detail.html)
 7. [模仿百度搜索框模糊匹配](https://obligat.github.io/js/jsonp/blurSearch.html)
+8. [模仿猎豹首页自适应布局](https://obligat.github.io/js/search-box.html)
 
