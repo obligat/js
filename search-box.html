@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>search-box</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="format-detection" content="telephone=no" />
+    <style type="text/css">
+    body {
+        width: 100%;
+        overflow-x: hidden;
+        margin: 0;
+        padding: 0;
+    }
+    /* .box{
+    		width: 300px;
+    		height: 150px;
+    		margin:0 auto;
+    		background: black;
+    	} */
+    /* .box{
+    		margin: 0 10px;
+    		height: 150px;
+    		background-color: black;
+    	} */
+
+    ul,
+    li,
+    a,
+    h1 {
+        margin: 0;
+        padding: 0;
+        text-decoration: none;
+        list-style: none;
+    }
+
+    a {
+        color: #fff;
+    }
+
+    .header {
+        height: 89px;
+        background: rgba(255, 105, 0, 0.8);
+    }
+
+    #logo {
+        font-size: 0;
+    }
+
+
+    .content {
+        display: flex;
+        justify-content: space-around;
+        line-height: 89px;
+    }
+
+    .ul {
+        display: flex;
+        height: 89px;
+        min-width: 355px;
+    }
+
+    .ul>li {
+        flex: 1;
+        padding: 0 1rem;
+    }
+
+    .ul>li:hover {
+        background: #ff6900;
+        cursor: pointer;
+        transition: all 0.2s linear 0.1s;
+    }
+
+    #imgLogo {
+        margin-top: 16px;
+    }
+
+    .banner {
+        height: 490px;
+        background: #ff6900;
+        display: flex;
+        align-items: center;
+ 
+    }
+
+    .banner>div {
+        margin-top: -89px;
+    }
+
+    .banner-bg {
+        width: 500px;
+        height: 500px;
+    }
+
+    .banner-bg>img {
+        width: 668px;
+        height: 582px;
+    }
+
+  
+    .font-bg {
+        width: 400px;
+        height: 169px;
+    }
+
+
+    @media screen and (max-width:760px) {
+        .content {
+            width: 100%;
+            line-height: 46px;
+        }
+        .nav {
+            display: none;
+        }
+        #imgLogo {
+            height: 35px;
+            margin-top: 5px;
+        }
+
+        .header {
+            line-height: 46px;
+            height: 46px;
+        }
+
+		.banner{
+			height: 300px;
+		}
+        .banner-bg, .banner-bg > img {
+            width: 290px;
+            height: 252px;
+        }
+        .font-bg, .font-bg > img {
+            width: 280px;
+            height: 100px;
+        }
+    }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="content">
+            <h1><a href="#"><img id="imgLogo" src="http://www.liebao.cn/lbimages/logo.png"></a>
+			<span id="logo">猎豹安全浏览器</span>
+		</h1>
+            <nav class="nav">
+                <ul class="ul">
+                    <li><a href="#">首页<i></i></a></li>
+                    <li><a href="#">下载<i></i></a></li>
+                    <li><a href="#">论坛<i></i></a></li>
+                    <li><a href="#">International<i></i></a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div class="banner">
+        <div class="banner-bg">
+            <img src="http://www.liebao.cn/lbimages/bao-2.png	">
+        </div>
+        <div class="font-bg">
+            <img src="http://www.liebao.cn/lbimages/st-2-6-20170515.png">
+        </div>
+    </div>
+</body>
+
+</html>
